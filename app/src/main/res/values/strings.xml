@@ -1,9 +1,32 @@
 <resources>
     <string name="app_name">TaskMaster</string>
-    <string name="configuraci_n">Configuración</string>
-    <string name="inicio">Inicio</string>
+    <string name="configuracion">Configuración</string>
     <string name="acerca_de">Acerca de</string>
-    <string name="perfil">Perfil</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="perfil">Perfil</string>>
+    <string name="contrasena">¿Has olvidado tu contraseña?</string>
+    <string name="email">Ingresa tu email</string>
+    <string name="contrasena2">Ingresa tu contraseña</string>
+    <string name="inicio">Iniciar sesión</string>
+    <string name="tema">Tema</string>
+    <string name="predeterminado">Predeterminado</string>
+    <string name="oscuro">Oscuro</string>
+    <string name="aqua">Aqua</string>
+    <string name="naturaleza">Naturaleza</string>
+    <string name="tamano">Tamaño</string>
+    <string name="chiquita">aA</string>
+    <string name="letraGrande">aA</string>
+    <string name="formato_de_fecha">Formato de fecha</string>
+    <string name="twelve">12h</string>
+    <string name="twentyFour">24h</string>
+    <string name="registrobtn">Registrarse</string>
+    <string name="usuariotext">Ingresa nombre de usuario </string>
+    <string name="cuenta">¿No tienes cuenta?</string>
+    <string name="yacuenta">¿Ya tienes cuenta?</string>
+    <string name="agregar">+</string>
+    <string name="descripcion_de_la_tarea">Descripcion de la tarea</string>
+    <string name="seleccionar_fecha_limite">Seleccionar fecha limite</string>
+    <string name="seleccionar_fecha">Seleccionar fecha</string>
+    <string name="nombre_de_la_tarea">Nombre de la tarea</string>
+    <string name="iniciod">Inicio</string>
+    <string name="salir">Salir</string>
 </resources>
