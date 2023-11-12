@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/inicio"
+        android:title="@string/inicio"
+        android:icon="@drawable/baseline_home_24"/>
+
+    <item
+        android:id="@+id/config"
+        android:title="@string/configuraci_n"
+        android:icon="@drawable/baseline_app_settings_alt_24"/>
+
+    <item
+        android:id="@+id/btnCrear"
+        android:title=""
+        android:enabled="false"/>
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/acerca_de"
+        android:icon="@drawable/baseline_info_24"/>
+
+    <item
+        android:id="@+id/cuenta"
+        android:title="@string/perfil"
+        android:icon="@drawable/baseline_account_circle_24"/>
+
+</menu>
