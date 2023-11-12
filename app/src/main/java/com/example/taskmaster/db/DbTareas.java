@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
 
+import com.example.taskmaster.TareaFragment;
 import com.example.taskmaster.entidades.Tareas;
 
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class DbTareas extends DbHelper {
         super(context);
         this.context = context;
     }
-    
+
+
     public long insertarTarea(String nombre, String descripcion, String fecha) {
 
         long id = 0;
