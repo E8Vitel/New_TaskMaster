@@ -13,10 +13,16 @@
         android:theme="@style/Theme.BottomNavigation"
         tools:targetApi="34">
         <activity
+            android:name=".VerActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".RegistroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditarActivity"
             android:exported="false" />
         <activity
             android:name=".SesionActivity"

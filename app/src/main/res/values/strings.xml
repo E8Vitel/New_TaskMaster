@@ -29,4 +29,9 @@
     <string name="nombre_de_la_tarea">Nombre de la tarea</string>
     <string name="iniciod">Inicio</string>
     <string name="salir">Salir</string>
+    <string name="modificar">Modificar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="modificaras">Modificar</string>
+    <string name="volver">Volver</string>
+    <string name="guardar">Guardar</string>
 </resources>
