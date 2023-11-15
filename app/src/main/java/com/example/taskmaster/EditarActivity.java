@@ -1,10 +1,12 @@
 package com.example.taskmaster;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,12 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.taskmaster.db.DbTareas;
 import com.example.taskmaster.entidades.Tareas;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EditarActivity extends AppCompatActivity {
 
     EditText txtFecha, txtDesc, txtTarea;
     Button btnModificar, btnVolver;
-
+    FloatingActionButton btnEditar;
     Boolean correcto = false;
     Tareas tareas;
     int id = 0;
@@ -32,7 +35,7 @@ public class EditarActivity extends AppCompatActivity {
         txtFecha = findViewById(R.id.txtFecha);
         btnModificar = findViewById(R.id.btnUpdate);
         btnVolver = findViewById(R.id.btnVolver);
-
+        btnEditar = findViewById(R.id.editar);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -52,8 +55,15 @@ public class EditarActivity extends AppCompatActivity {
             txtTarea.setText(tareas.getNombre());
             txtDesc.setText(tareas.getDescripcion());
             txtFecha.setText(tareas.getFecha());
-
+            btnEditar.setVisibility(View.INVISIBLE);
         }
+
+        txtFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
 
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,5 +93,17 @@ public class EditarActivity extends AppCompatActivity {
         Intent intent = new Intent(EditarActivity.this, VerActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Aquí puedes manejar la fecha seleccionada
+                String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
+                txtFecha.setText(selectedDate);
+            }
+        }, 2023, 11, 3); // Ajusta el año, mes y día según sea necesario
+
+        datePickerDialog.show();
     }
 }
