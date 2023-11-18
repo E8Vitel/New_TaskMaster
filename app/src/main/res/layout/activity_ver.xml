@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,74 +13,93 @@
         android:id="@+id/vTarea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nombre_de_la_tarea"/>
+        android:text="@string/nombre_de_la_tarea" />
 
     <EditText
         android:id="@+id/txtTarea"
         android:layout_width="match_parent"
 
         android:layout_height="48dp"
-        android:labelFor="@+id/vTarea"
-        />
+        android:labelFor="@+id/vTarea" />
 
     <TextView
         android:id="@+id/vDescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/descripcion_de_la_tarea"/>
+        android:text="@string/descripcion_de_la_tarea" />
 
     <EditText
         android:id="@+id/txtDesc"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:labelFor="@+id/vDescripcion"
         android:inputType="text"
-        />
+        android:labelFor="@+id/vDescripcion" />
 
     <TextView
         android:id="@+id/vFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/seleccionar_fecha_limite"/>
+        android:text="@string/seleccionar_fecha_limite" />
 
     <EditText
         android:id="@+id/txtFecha"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:inputType="none"
-        android:focusable="false"
         android:clickable="true"
-        android:labelFor="@+id/vFecha"/>
+        android:focusable="false"
+        android:inputType="none"
+        android:labelFor="@+id/vFecha" />
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnVolver"
-        android:layout_width="106dp"
-        android:layout_height="wrap_content"
-        android:text="@string/volver"
-        />
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:text="@string/volver" />
 
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="106dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="160dp"
-        android:layout_toRightOf="@+id/btnVolver"
-        android:text="@string/guardar" />
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:layout_toRightOf="@+id/btnVolver"
+            android:text="@string/guardar" />
 
-</RelativeLayout>
+    </RelativeLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editar"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:backgroundTint="@color/lavender"
-        android:clickable="true"
-        app:srcCompat="@drawable/baseline_border_color_24" />
+        android:layout_alignParentBottom="true">
 
+
+        <!-- Botón Eliminar en la esquina inferior izquierda -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/lavender"
+            android:clickable="true"
+            app:srcCompat="@drawable/baseline_delete_24" />
+
+        <!-- Botón Editar en la esquina inferior derecha -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/editar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/lavender"
+            android:clickable="true"
+            app:srcCompat="@drawable/baseline_border_color_24" />
+
+    </RelativeLayout>
 
 </LinearLayout>

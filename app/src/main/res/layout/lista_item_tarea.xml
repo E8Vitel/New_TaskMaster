@@ -35,17 +35,11 @@
 
 
     <!-- Botón Eliminar -->
-    <ImageButton
-        android:id="@+id/btnEliminar"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_below="@id/viewFecha"
-        android:contentDescription="@string/eliminar"
-        android:src="@drawable/baseline_delete_24" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/btnEliminar"
+        android:layout_below="@id/viewFecha"
+        android:layout_marginTop="10dp"
         android:background="#000000"/>
 </RelativeLayout>

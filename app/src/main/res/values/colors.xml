@@ -9,4 +9,22 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692f7</color>
 
+    <!-- Negros -->
+    <color name="colorPrimaryDark">#303030</color>
+    <color name="colorAccentDark">#FFAB00</color>
+    <color name="textColorDark">#FFFFFF</color>
+
+    <!-- Aqua -->
+    <color name="colorPrimaryAqua">#00BCD4</color>
+    <color name="colorPrimaryDarkAqua">#0097A7</color>
+    <color name="colorAccentAqua">#FF4081</color>
+    <color name="textColorAqua">#000000</color>
+
+    <!-- Neón -->
+    <color name="colorPrimaryNeon">#00FF00</color>
+    <color name="colorPrimaryDarkNeon">#00CC00</color>
+    <color name="colorAccentNeon">#FF00FF</color>
+    <color name="textColorNeon">#000000</color>
+
+
 </resources>

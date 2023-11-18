@@ -104,4 +104,23 @@ public class DbTareas extends DbHelper {
         }
         return correcto;
     }
+
+    public boolean eliminarTarea(int id) {
+
+        boolean correcto = false;
+
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        try {
+            db.execSQL("DELETE FROM " + TABLE_NOTAS + " WHERE id = '" + id +"'");
+            correcto = true;
+        } catch (Exception ex) {
+            ex.toString();
+            correcto = false;
+        } finally {
+            db.close();
+        }
+        return correcto;
+    }
 }

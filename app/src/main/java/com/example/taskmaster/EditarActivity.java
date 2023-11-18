@@ -20,7 +20,7 @@ public class EditarActivity extends AppCompatActivity {
 
     EditText txtFecha, txtDesc, txtTarea;
     Button btnModificar, btnVolver;
-    FloatingActionButton btnEditar;
+    FloatingActionButton btnEditar, btnEliminar;
     Boolean correcto = false;
     Tareas tareas;
     int id = 0;
@@ -34,6 +34,7 @@ public class EditarActivity extends AppCompatActivity {
         txtDesc = findViewById(R.id.txtDesc);
         txtFecha = findViewById(R.id.txtFecha);
         btnModificar = findViewById(R.id.btnUpdate);
+        btnEliminar = findViewById(R.id.btnEliminar);
         btnVolver = findViewById(R.id.btnVolver);
         btnEditar = findViewById(R.id.editar);
 
@@ -56,6 +57,7 @@ public class EditarActivity extends AppCompatActivity {
             txtDesc.setText(tareas.getDescripcion());
             txtFecha.setText(tareas.getFecha());
             btnEditar.setVisibility(View.INVISIBLE);
+            btnEliminar.setVisibility(View.INVISIBLE);
         }
 
         txtFecha.setOnClickListener(new View.OnClickListener() {

@@ -11,7 +11,7 @@
     <string name="predeterminado">Predeterminado</string>
     <string name="oscuro">Oscuro</string>
     <string name="aqua">Aqua</string>
-    <string name="naturaleza">Naturaleza</string>
+    <string name="neon">Neón</string>
     <string name="tamano">Tamaño</string>
     <string name="chiquita">aA</string>
     <string name="letraGrande">aA</string>
@@ -24,7 +24,7 @@
     <string name="yacuenta">¿Ya tienes cuenta?</string>
     <string name="agregar">+</string>
     <string name="descripcion_de_la_tarea">Descripcion de la tarea</string>
-    <string name="seleccionar_fecha_limite">Seleccionar fecha limite</string>
+    <string name="seleccionar_fecha_limite">Seleccionar fecha y hora limite</string>
     <string name="seleccionar_fecha">Seleccionar fecha</string>
     <string name="nombre_de_la_tarea">Nombre de la tarea</string>
     <string name="iniciod">Inicio</string>
