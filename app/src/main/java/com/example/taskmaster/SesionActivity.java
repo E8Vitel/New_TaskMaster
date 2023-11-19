@@ -7,16 +7,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taskmaster.db.DbHelper;
+import com.example.taskmaster.db.DbSesion;
 
 public class SesionActivity extends AppCompatActivity {
 
     Button btnInicio;
     TextView registro;
-    TextView iforgor;
+
+    EditText txtEmailIs, txtContraIs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,10 @@ public class SesionActivity extends AppCompatActivity {
 
         btnInicio = findViewById(R.id.btnInicio);
         registro = findViewById(R.id.txtRegistroIs);
-        iforgor = findViewById(R.id.Iforgor);
+        txtEmailIs = findViewById(R.id.txtEmailIs);
+        txtContraIs = findViewById(R.id.txtContraIs);
+
+
 
         DbHelper dbHelper = new DbHelper(SesionActivity.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -37,11 +43,23 @@ public class SesionActivity extends AppCompatActivity {
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SesionActivity.this,MainActivity.class);
-                startActivity(intent);
-
+                String email = txtEmailIs.getText().toString().trim();
+                String contrasena = txtContraIs.getText().toString().trim();
+                DbSesion dbSesion = new DbSesion(SesionActivity.this);
+                boolean autenticado = dbSesion.autenticarUsuario(email, contrasena);
+                if (email.equals("") || contrasena.equals("")){
+                        Toast.makeText(SesionActivity.this, "Los campos no pueden estar vacios",Toast.LENGTH_LONG).show();
+                } else {
+                    if (autenticado) {
+                        Intent intent = new Intent(SesionActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(SesionActivity.this, "Email y/o contraseña incorrectos",Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
+
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,4 +68,5 @@ public class SesionActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -56,12 +56,6 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.inicio) {
                 replaceFragment(new TareaFragment());
                 txtFragment.setText("Inicio");
-            } else if (itemId == R.id.config) {
-                replaceFragment(new ConfigFragment());
-                txtFragment.setText("Configuración");
-            } else if (itemId == R.id.about) {
-                replaceFragment(new AboutFragment());
-                txtFragment.setText("Acerca de Task Master");
             } else if (itemId == R.id.cuenta) {
                 replaceFragment(new CuentaFragment());
                 txtFragment.setText("Perfil");
@@ -170,4 +164,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 }

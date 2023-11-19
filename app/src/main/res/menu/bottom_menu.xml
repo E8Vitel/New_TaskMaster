@@ -7,19 +7,9 @@
         android:icon="@drawable/baseline_home_24"/>
 
     <item
-        android:id="@+id/config"
-        android:title="@string/configuracion"
-        android:icon="@drawable/baseline_app_settings_alt_24"/>
-
-    <item
         android:id="@+id/crear"
         android:title=""
         android:enabled="false"/>
-
-    <item
-        android:id="@+id/about"
-        android:title="@string/acerca_de"
-        android:icon="@drawable/baseline_info_24"/>
 
     <item
         android:id="@+id/cuenta"
