@@ -2,10 +2,21 @@ package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.ActivityCompat;
+
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -14,6 +25,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +36,10 @@ import com.example.taskmaster.db.DbTareas;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel Name";
+            String description = "Channel Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void showAddTaskDialog() {
@@ -75,15 +100,14 @@ public class MainActivity extends AppCompatActivity {
         descripcion = view.findViewById(R.id.descripcion);
         txtFechaLimite = view.findViewById(R.id.txtFechaLimite);
 
-        // Configura el AlertDialog
         builder.setTitle("Agregar Tarea")
                 .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String taskDateTime = txtFechaLimite.getText().toString();
                         DbTareas dbTareas = new DbTareas(MainActivity.this);
-                        dbTareas.insertarTarea(taskName.getText().toString(), descripcion.getText().toString(), txtFechaLimite.getText().toString());
+                        long id = dbTareas.insertarTarea(taskName.getText().toString(), descripcion.getText().toString(), txtFechaLimite.getText().toString());
 
-                        replaceFragment(new TareaFragment());
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -105,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void showDateTimePickerDialog() {
         Calendar calendar = Calendar.getInstance();
@@ -151,4 +176,72 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void configureAlarmForTask(long taskId, String taskDateTime) {
+        // Configurar la alarma aquí
+        setAlarm(taskId, taskDateTime);
+    }
+
+    private void setAlarm(long taskId, String taskDateTime) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            Date date = dateFormat.parse(taskDateTime);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            intent.putExtra("taskId", taskId);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) taskId, intent, 0);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+            Toast.makeText(this, "Alarma configurada para la tarea", Toast.LENGTH_SHORT).show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al configurar la alarma: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void showNotificationIfCloseToDeadline(String taskDateTime) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            Date date = dateFormat.parse(taskDateTime);
+
+            Calendar taskCalendar = Calendar.getInstance();
+            taskCalendar.setTime(date);
+
+            // Verificar si la fecha está cerca de 3 días
+            Calendar now = Calendar.getInstance();
+            now.add(Calendar.DAY_OF_MONTH, 3);
+
+            if (taskCalendar.before(now)) {
+                // Si la fecha está cerca, mostrar la notificación
+                showNotification("Tarea cercana", "La tarea está cerca de su fecha límite");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showNotification(String title, String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.VIBRATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Si no tiene el permiso, solicitarlo
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.VIBRATE}, 1);
+        } else {
+            // Si ya tiene el permiso, continuar con la lógica para mostrar la notificación
+            showNotification("Título", "Contenido de la notificación");
+        }
+
+        notificationManager.notify(1, builder.build());
+    }
 }

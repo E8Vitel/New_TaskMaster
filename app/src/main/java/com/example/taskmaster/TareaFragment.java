@@ -3,6 +3,8 @@ package com.example.taskmaster;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,5 +37,12 @@ public class TareaFragment extends Fragment {
         listaTareas.setAdapter(adapter);
 
         return view;
+    }
+    private void checkDatesInRecyclerView() {
+        Log.d("TAG", "checkDatesInRecyclerView called");
+        for (Tareas tarea : listaArrayTareas) {
+            String fechaLimite = tarea.getFecha();
+            ((MainActivity) requireActivity()).showNotificationIfCloseToDeadline(fechaLimite);
+        }
     }
 }
