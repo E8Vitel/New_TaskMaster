@@ -3,16 +3,17 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.taskmaster.db.DbHelper;
 import com.example.taskmaster.db.DbSesion;
+
 
 public class SesionActivity extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class SesionActivity extends AppCompatActivity {
     TextView registro;
 
     EditText txtEmailIs, txtContraIs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +34,6 @@ public class SesionActivity extends AppCompatActivity {
 
 
 
-        DbHelper dbHelper = new DbHelper(SesionActivity.this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        if (db != null) {
-            Toast.makeText(this, "Bienvenido!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "Algo a salido mal...", Toast.LENGTH_LONG).show();
-        }
-
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,14 +41,14 @@ public class SesionActivity extends AppCompatActivity {
                 String contrasena = txtContraIs.getText().toString().trim();
                 DbSesion dbSesion = new DbSesion(SesionActivity.this);
                 boolean autenticado = dbSesion.autenticarUsuario(email, contrasena);
-                if (email.equals("") || contrasena.equals("")){
-                        Toast.makeText(SesionActivity.this, "Los campos no pueden estar vacios",Toast.LENGTH_LONG).show();
+                if (email.equals("") || contrasena.equals("")) {
+                    Toast.makeText(SesionActivity.this, "Los campos no pueden estar vacios", Toast.LENGTH_LONG).show();
                 } else {
                     if (autenticado) {
-                        Intent intent = new Intent(SesionActivity.this,MainActivity.class);
+                        Intent intent = new Intent(SesionActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(SesionActivity.this, "Email y/o contraseña incorrectos",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SesionActivity.this, "Email y/o contraseña incorrectos", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -63,7 +57,7 @@ public class SesionActivity extends AppCompatActivity {
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SesionActivity.this,RegistroActivity.class);
+                Intent intent = new Intent(SesionActivity.this, RegistroActivity.class);
                 startActivity(intent);
             }
         });

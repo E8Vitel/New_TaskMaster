@@ -1,6 +1,5 @@
 package com.example.taskmaster;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -11,23 +10,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskmaster.databinding.ActivityMainBinding;
 import com.example.taskmaster.db.DbTareas;
-import com.example.taskmaster.entidades.Tareas;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,10 +81,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DbTareas dbTareas = new DbTareas(MainActivity.this);
-                        long id = dbTareas.insertarTarea(taskName.getText().toString(), descripcion.getText().toString(), txtFechaLimite.getText().toString());
+                        dbTareas.insertarTarea(taskName.getText().toString(), descripcion.getText().toString(), txtFechaLimite.getText().toString());
 
-                        Toast.makeText(MainActivity.this, "Registro Existoso", Toast.LENGTH_SHORT).show();
-                        limpiar();
                         replaceFragment(new TareaFragment());
                     }
                 })
@@ -103,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        // Agregar lógica para mostrar el DatePickerDialog al tocar el EditText de fecha
+
         txtFechaLimite = view.findViewById(R.id.txtFechaLimite);
         txtFechaLimite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDateTimePickerDialog() {
-        // Obtener la fecha actual
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -122,27 +114,21 @@ public class MainActivity extends AppCompatActivity {
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        // Crear el DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Aquí puedes manejar la fecha seleccionada
                 String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
 
-                // Crear el TimePickerDialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        // Aquí puedes manejar la hora y los minutos seleccionados
                         String selectedTime = hourOfDay + ":" + minute;
 
-                        // Concatenar la fecha y la hora seleccionadas
                         String selectedDateTime = selectedDate + " " + selectedTime;
 
-                        // Mostrar la fecha y la hora en tu TextView o donde sea necesario
                         txtFechaLimite.setText(selectedDateTime);
                     }
-                }, hourOfDay, minute, false); // El último parámetro indica si se muestra el formato de 24 horas o no
+                }, hourOfDay, minute, false);
 
                 timePickerDialog.show();
             }
