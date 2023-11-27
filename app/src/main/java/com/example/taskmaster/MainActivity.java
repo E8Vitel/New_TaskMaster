@@ -176,32 +176,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void configureAlarmForTask(long taskId, String taskDateTime) {
-        // Configurar la alarma aquí
-        setAlarm(taskId, taskDateTime);
-    }
 
-    private void setAlarm(long taskId, String taskDateTime) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            Date date = dateFormat.parse(taskDateTime);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            intent.putExtra("taskId", taskId);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) taskId, intent, 0);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-            Toast.makeText(this, "Alarma configurada para la tarea", Toast.LENGTH_SHORT).show();
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error al configurar la alarma: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
 
     public void showNotificationIfCloseToDeadline(String taskDateTime) {
         try {
