@@ -1,9 +1,12 @@
 package com.example.taskmaster;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,11 +16,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.taskmaster.Alarma.AlarmReceiver;
+import com.example.taskmaster.Alarma.NotificationService;
 import com.example.taskmaster.db.DbTareas;
 import com.example.taskmaster.entidades.Tareas;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EditarActivity extends AppCompatActivity {
 
@@ -78,6 +86,7 @@ public class EditarActivity extends AppCompatActivity {
                     if (correcto) {
                         Toast.makeText(EditarActivity.this, "Registro Actualizado!", Toast.LENGTH_LONG).show();
                         verRegistro();
+                        setAlarm();
                     } else {
                         Toast.makeText(EditarActivity.this, "Error al modificar el registro...", Toast.LENGTH_LONG).show();
                     }
@@ -135,5 +144,32 @@ public class EditarActivity extends AppCompatActivity {
         }, year, month, dayOfMonth);
 
         datePickerDialog.show();
+    }
+    private void setAlarm() {
+        String taskDateTime = txtFecha.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date date = null;
+        try {
+            date = dateFormat.parse(taskDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (date != null) {
+            long timeInMillis = date.getTime();
+            Log.d("AlarmTime", "Time in millis: " + timeInMillis);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            intent.putExtra("TASK_NAME", txtTarea.getText().toString());
+            intent.putExtra("TASK_TIME", timeInMillis);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE);
+
+            // Configura la alarma para que se active en la fecha y hora especificadas
+            alarmManager.set(AlarmManager.RTC, timeInMillis, pendingIntent);
+
+            Intent serviceIntent = new Intent(this, NotificationService.class);
+            startService(serviceIntent);
+        }
     }
 }

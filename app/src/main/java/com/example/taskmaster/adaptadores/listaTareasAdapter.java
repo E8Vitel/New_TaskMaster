@@ -36,6 +36,8 @@ public class listaTareasAdapter extends RecyclerView.Adapter<listaTareasAdapter.
         holder.viewNombre.setText(listaTareas.get(position).getNombre());
         holder.viewDescripcion.setText(listaTareas.get(position).getDescripcion());
         holder.viewFecha.setText(listaTareas.get(position).getFecha());
+
+
     }
 
     @Override
