@@ -2,44 +2,26 @@ package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import androidx.core.app.ActivityCompat;
-
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.taskmaster.databinding.ActivityMainBinding;
-import com.example.taskmaster.db.DbTareas;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,15 +62,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Channel Name";
-            String description = "Channel Description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel_id", name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     private void showAddTaskDialog() {
@@ -104,10 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String taskDateTime = txtFechaLimite.getText().toString();
-                        DbTareas dbTareas = new DbTareas(MainActivity.this);
-                        long id = dbTareas.insertarTarea(taskName.getText().toString(), descripcion.getText().toString(), txtFechaLimite.getText().toString());
-
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -174,49 +143,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
-    }
-
-
-
-    public void showNotificationIfCloseToDeadline(String taskDateTime) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            Date date = dateFormat.parse(taskDateTime);
-
-            Calendar taskCalendar = Calendar.getInstance();
-            taskCalendar.setTime(date);
-
-            // Verificar si la fecha está cerca de 3 días
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.DAY_OF_MONTH, 3);
-
-            if (taskCalendar.before(now)) {
-                // Si la fecha está cerca, mostrar la notificación
-                showNotification("Tarea cercana", "La tarea está cerca de su fecha límite");
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showNotification(String title, String content) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.VIBRATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Si no tiene el permiso, solicitarlo
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.VIBRATE}, 1);
-        } else {
-            // Si ya tiene el permiso, continuar con la lógica para mostrar la notificación
-            showNotification("Título", "Contenido de la notificación");
-        }
-
-        notificationManager.notify(1, builder.build());
     }
 }

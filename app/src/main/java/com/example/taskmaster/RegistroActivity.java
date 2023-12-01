@@ -1,5 +1,7 @@
+
 package com.example.taskmaster;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taskmaster.databinding.ActivityRegistroBinding;
-import com.example.taskmaster.db.DbSesion;
-import com.example.taskmaster.validaciones.ValidarEmail;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistroActivity extends AppCompatActivity {
 
+    FirebaseAuth auth;
     TextView inicioSesion;
     Button btnRegistro;
     ActivityRegistroBinding binding;
@@ -33,8 +38,7 @@ public class RegistroActivity extends AppCompatActivity {
         txtConfirmar = findViewById(R.id.txtConfirmar);
         inicioSesion = findViewById(R.id.txtIniciarSesion);
         btnRegistro = findViewById(R.id.btnRegistro);
-
-        DbSesion dbSesion = new DbSesion(RegistroActivity.this);
+        auth = FirebaseAuth.getInstance();
 
         inicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,41 +58,29 @@ public class RegistroActivity extends AppCompatActivity {
 
                 if (usuario.equals("") || email.equals("") || contrasena.equals("") || confirmar.equals("")) {
                     Toast.makeText(RegistroActivity.this, "Todos los campos deben ser rellenados", Toast.LENGTH_SHORT).show();
-                } else if (!ValidarEmail.emailValido(email)) {
-                    Toast.makeText(RegistroActivity.this, "El correo electrónico no es válido", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (contrasena.length() > 6) {
                     if (contrasena.equals(confirmar)) {
-                        boolean revisarEmail = dbSesion.revisarEmail(email);
-                        boolean revisarUsuario = dbSesion.revisarUsuario(usuario);
-
-                        if (!revisarEmail) {
-                            if (!revisarUsuario) {
-                                long id = dbSesion.insertarSesion(usuario, email, contrasena);
-                                if (id > 0) {
+                        auth.createUserWithEmailAndPassword(email, contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
                                     Toast.makeText(RegistroActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RegistroActivity.this, SesionActivity.class);
+                                    intent.putExtra("user", usuario);
                                     startActivity(intent);
                                     limpiar();
-                                } else {
-                                    Toast.makeText(RegistroActivity.this, "Registro Fallido", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                Toast.makeText(RegistroActivity.this, "El nombre de usuario ya está registrado", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            Toast.makeText(RegistroActivity.this, "El correo electrónico ya está registrado", Toast.LENGTH_SHORT).show();
-                        }
+                        });
                     } else {
                         Toast.makeText(RegistroActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(RegistroActivity.this, "La contraseña no puede tener menos de 6 caracteres", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-
     }
-
 
     private void limpiar() {
         txtUsuario.setText("");

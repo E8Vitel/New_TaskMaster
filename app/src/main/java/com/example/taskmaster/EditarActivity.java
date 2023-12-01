@@ -1,4 +1,6 @@
+
 package com.example.taskmaster;
+
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -13,8 +15,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.taskmaster.db.DbTareas;
-import com.example.taskmaster.entidades.Tareas;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -25,7 +25,6 @@ public class EditarActivity extends AppCompatActivity {
     Button btnModificar, btnVolver;
     FloatingActionButton btnEditar, btnEliminar;
     Boolean correcto = false;
-    Tareas tareas;
     int id = 0;
 
     @Override
@@ -41,27 +40,6 @@ public class EditarActivity extends AppCompatActivity {
         btnVolver = findViewById(R.id.btnVolver);
         btnEditar = findViewById(R.id.editar);
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                id = Integer.parseInt(null);
-            } else {
-                id = extras.getInt("ID");
-            }
-        } else {
-            id = (int) savedInstanceState.getSerializable("ID");
-        }
-
-        DbTareas dbTareas = new DbTareas(EditarActivity.this);
-        tareas = dbTareas.verTareas(id);
-
-        if (tareas != null) {
-            txtTarea.setText(tareas.getNombre());
-            txtDesc.setText(tareas.getDescripcion());
-            txtFecha.setText(tareas.getFecha());
-            btnEditar.setVisibility(View.INVISIBLE);
-            btnEliminar.setVisibility(View.INVISIBLE);
-        }
 
         txtFecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +52,6 @@ public class EditarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!txtTarea.getText().toString().equals("") || txtFecha.getText().toString().equals("")) {
-                    correcto = dbTareas.editarTarea(id, txtTarea.getText().toString(), txtDesc.getText().toString(), txtFecha.getText().toString());
                     if (correcto) {
                         Toast.makeText(EditarActivity.this, "Registro Actualizado!", Toast.LENGTH_LONG).show();
                         verRegistro();
@@ -112,10 +89,9 @@ public class EditarActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Aquí puedes manejar la fecha seleccionada
+
                 String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
 
-                // Crear el TimePickerDialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(EditarActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
