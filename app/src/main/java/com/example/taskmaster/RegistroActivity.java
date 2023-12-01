@@ -17,14 +17,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
+    private FirebaseAuth auth;
     TextView inicioSesion;
     Button btnRegistro;
     ActivityRegistroBinding binding;
-    EditText txtUsuario, txtEmail, txtContrasena, txtConfirmar;
+    EditText txtUsuario, txtEmail, txtContrasena, txtConfirmar, txtNombre;
+    FirebaseDatabase baseDatos;
+    DatabaseReference referencia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class RegistroActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         txtUsuario = findViewById(R.id.txtUsuario);
+        txtNombre = findViewById(R.id.txtNombre);
         txtEmail = findViewById(R.id.txtEmail);
         txtContrasena = findViewById(R.id.txtContrasena);
         txtConfirmar = findViewById(R.id.txtConfirmar);
@@ -51,22 +56,31 @@ public class RegistroActivity extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                baseDatos = FirebaseDatabase.getInstance();
+                referencia = baseDatos.getReference("usuarios");
+
                 String usuario = binding.txtUsuario.getText().toString();
+                String nombre = binding.txtNombre.getText().toString();
                 String email = binding.txtEmail.getText().toString();
                 String contrasena = binding.txtContrasena.getText().toString();
                 String confirmar = binding.txtConfirmar.getText().toString();
 
-                if (usuario.equals("") || email.equals("") || contrasena.equals("") || confirmar.equals("")) {
+                if (usuario.equals("") || email.equals("") || contrasena.equals("") || confirmar.equals("") || nombre.equals("")) {
                     Toast.makeText(RegistroActivity.this, "Todos los campos deben ser rellenados", Toast.LENGTH_SHORT).show();
-                } else if (contrasena.length() > 6) {
+                } else if (contrasena.length() >= 6) {
                     if (contrasena.equals(confirmar)) {
+
                         auth.createUserWithEmailAndPassword(email, contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+
+                                    Usuarios usuarios = new Usuarios(nombre, email, usuario);
+                                    referencia.child(usuario).setValue(usuarios);
+
                                     Toast.makeText(RegistroActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RegistroActivity.this, SesionActivity.class);
-                                    intent.putExtra("user", usuario);
                                     startActivity(intent);
                                     limpiar();
                                 }

@@ -4,6 +4,7 @@ package com.example.taskmaster;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
@@ -12,10 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class CuentaFragment extends Fragment {
 
+    GoogleSignInClient googleSignInClient;
     RadioGroup radioGroup;
     Button btnLogout;
 
@@ -41,21 +49,28 @@ public class CuentaFragment extends Fragment {
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                cerrarSesion();
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        if (firebaseAuth.getCurrentUser() == null) {
+                            googleSignInClient.signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getActivity(), "Signed out successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity(), SesionActivity.class));
+                                }
+                            });
+                        }
+                    }
+                });
+                FirebaseAuth.getInstance().signOut();
             }
         });
+
         return view;
     }
 
-    private void cerrarSesion() {
-
-        Intent intent = new Intent(getActivity(), SesionActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
-        getActivity().finish();
-    }
 
 
 }
