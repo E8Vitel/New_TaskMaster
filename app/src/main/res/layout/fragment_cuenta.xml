@@ -4,120 +4,160 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/profile_background"
     tools:context=".CuentaFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:padding="16dp">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baseline_edit_note_24" />
-
-        <TextView
-            android:id="@+id/textViewUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/kkkk"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/campoUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="text"/>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginBottom="16dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Email:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/campoEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="text"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginBottom="16dp"
-            android:background="@android:color/darker_gray" />
-
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginTop="340dp"
-            android:text="Cerrar Sesión" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_radius"
         android:orientation="vertical">
 
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:src="@mipmap/ic_launcher_round" />
+
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/tema"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:text="TaskMaster"
+            android:textSize="24sp" />
 
-        <RadioGroup
-            android:id="@+id/rbGrupo"
+        <View
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:background="@color/black" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rbDefault"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/predeterminado" />
+                android:layout_marginStart="14dp"
+                android:src="@drawable/baseline_face_6_24"/>
 
-            <RadioButton
-                android:id="@+id/rbOscuro"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/oscuro" />
+                android:layout_marginStart="6dp"
+                android:text="@string/nombre"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-        </RadioGroup>
+        <TextView
+            android:id="@+id/txtNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Nombre"
+            android:textSize="12sp" />
 
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:src="@drawable/baseline_account_circle_24"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/nombre_de_usuario"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Nombre de usuario"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/black" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:src="@drawable/baseline_alternate_email_24"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/email_pfp"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="Email"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/black" />
+
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_radius"
+            android:layout_marginBottom="20dp"
+            android:text="@string/cerrar_sesion"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

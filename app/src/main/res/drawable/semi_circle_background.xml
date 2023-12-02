@@ -1,5 +1,5 @@
 <!-- res/drawable/semi_circle_background.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/lavender"/> <!-- Puedes cambiar el color de fondo aquí -->
+    <solid android:color="@color/purple_200"/> <!-- Puedes cambiar el color de fondo aquí -->
     <corners android:topRightRadius="100dp" />
 </shape>

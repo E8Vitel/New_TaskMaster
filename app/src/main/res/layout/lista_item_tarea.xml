@@ -2,44 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rounded_eve"
     android:padding="16dp">
 
-    <!-- Nombre de la tarea -->
     <TextView
         android:id="@+id/viewNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:text="TextView"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:textStyle="bold"/>
 
-    <!-- Descripción de la tarea (muestra solo una línea) -->
     <TextView
         android:id="@+id/viewDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_below="@id/viewNombre"
         android:text="TextView"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:maxLines="1"
         android:ellipsize="end"/>
 
-    <!-- Fecha de la tarea -->
     <TextView
         android:id="@+id/viewFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_below="@id/viewDescription"
         android:text="TextView"
-        android:textSize="15dp"/>
-
-
-    <!-- Botón Eliminar -->
+        android:textSize="15sp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/viewFecha"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:background="#000000"/>
 </RelativeLayout>

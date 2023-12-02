@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="#F0F0F0">
+    android:background="@drawable/profile_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#FFFFFF"
+        android:background="@drawable/rounded_radius"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_eve"
             android:backgroundTint="#E0E0E0"
             android:hint="@string/ingrese_su_nombre"
             android:inputType="text"
@@ -52,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_eve"
             android:backgroundTint="#E0E0E0"
             android:hint="@string/usuariotext"
             android:inputType="text"
@@ -68,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_eve"
             android:backgroundTint="#E0E0E0"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
@@ -84,6 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_eve"
             android:backgroundTint="#E0E0E0"
             android:hint="@string/contrasena2"
             android:inputType="textPassword"
@@ -100,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
+            android:background="@drawable/rounded_eve"
             android:backgroundTint="#E0E0E0"
             android:hint="@string/confirme_su_contrase_a"
             android:inputType="textPassword"
@@ -116,7 +121,7 @@
             android:id="@+id/btnRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lavender"
+            android:background="@drawable/rounded_eve"
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingTop="12dp"

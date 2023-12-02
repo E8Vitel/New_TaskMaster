@@ -56,7 +56,6 @@ public class RegistroActivity extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 baseDatos = FirebaseDatabase.getInstance();
                 referencia = baseDatos.getReference("usuarios");
 
@@ -77,7 +76,7 @@ public class RegistroActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     Usuarios usuarios = new Usuarios(nombre, email, usuario);
-                                    referencia.child(usuario).setValue(usuarios);
+                                    referencia.child(auth.getCurrentUser().getUid()).setValue(usuarios);
 
                                     Toast.makeText(RegistroActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RegistroActivity.this, SesionActivity.class);

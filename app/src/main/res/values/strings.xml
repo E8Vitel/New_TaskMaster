@@ -39,5 +39,9 @@
     <string name="o">O</string>
     <string name="ingrese_su_nombre">Ingrese su nombre</string>
 
-    <string name="client_id">830570465985-rch6pm0i9b6h4ddgun6le4m1g8vkkm7t.apps.googleusercontent.com</string>
+    <string name="client_id">830570465985-g37ip0o0rto87n5tnskjgav8q1dlpuhj.apps.googleusercontent.com</string>
+    <string name="nombre">Nombre</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="email_pfp">Email</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
 </resources>

@@ -15,8 +15,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TaskMaster"
-        >
+        android:theme="@style/Theme.TaskMaster">
+        <activity
+            android:name=".CrearActivity"
+            android:exported="false" />
         <activity
             android:name=".VerActivity"
             android:exported="false" />
@@ -29,6 +31,12 @@
         <activity
             android:name=".EditarActivity"
             android:exported="false" />
+        <activity
+            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:taskAffinity="android.task.auth"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".SesionActivity"
             android:exported="true">
