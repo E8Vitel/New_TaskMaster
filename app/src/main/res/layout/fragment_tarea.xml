@@ -12,12 +12,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listaTareas"
+        <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:id="@+id/buscar"
+            app:queryHint="@string/buscar"
+            android:focusable="false"
+            android:background="@drawable/rounded_eve_border"
+            app:closeIcon="@drawable/baseline_clear_24" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tareas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="60dp"/>
     </LinearLayout>
 
 

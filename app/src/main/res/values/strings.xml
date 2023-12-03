@@ -44,4 +44,6 @@
     <string name="nombre_de_usuario">Nombre de usuario</string>
     <string name="email_pfp">Email</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="cargando">Cargando...</string>
+    <string name="buscar">Buscar...</string>
 </resources>

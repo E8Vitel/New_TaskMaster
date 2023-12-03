@@ -32,12 +32,6 @@
             android:name=".EditarActivity"
             android:exported="false" />
         <activity
-            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:taskAffinity="android.task.auth"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
             android:name=".SesionActivity"
             android:exported="true">
             <intent-filter>
@@ -46,6 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".Alarma.AlarmReceiver"/>
     </application>
 
 </manifest>

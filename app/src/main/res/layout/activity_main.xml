@@ -49,18 +49,18 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="152dp"
             android:text="Inicio"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/baseline_edit_note_24"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
