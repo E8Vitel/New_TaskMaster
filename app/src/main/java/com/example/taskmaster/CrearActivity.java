@@ -86,20 +86,25 @@ public class CrearActivity extends AppCompatActivity {
 
         Tareas tareas = new Tareas(tarea, description, fecha);
 
-        FirebaseDatabase.getInstance().getReference("Tareas").child(uid).child(tarea)
-                .setValue(tareas).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        setAlarm(tarea);
-                        Toast.makeText(CrearActivity.this, "Tarea creada", Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CrearActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+        if (!tarea.isEmpty() || !description.isEmpty() || !fecha.isEmpty()){
+            FirebaseDatabase.getInstance().getReference("Tareas").child(uid).child(tarea)
+                    .setValue(tareas).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            setAlarm(tarea);
+                            Toast.makeText(CrearActivity.this, "Tarea creada", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CrearActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -138,6 +143,7 @@ public class CrearActivity extends AppCompatActivity {
     private void setAlarm(String taskNameValue) {
         String taskDateTime = txtFechaLimite.getText().toString();
         Log.d("setAlarm", "Nombre de la tarea: " + taskNameValue);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date date = null;
         try {
@@ -152,8 +158,10 @@ public class CrearActivity extends AppCompatActivity {
 
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             Intent intent = new Intent(this, AlarmReceiver.class);
-            intent.putExtra("TASK_TIME", timeInMillis);
+
+            // Asegúrate de que estás utilizando la misma clave "TASK_NAME" aquí
             intent.putExtra("TASK_NAME", taskNameValue);
+
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE);
 
             // Configura la alarma para que se active en la fecha y hora especificadas

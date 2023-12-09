@@ -46,4 +46,9 @@
     <string name="cerrar_sesion">Cerrar sesión</string>
     <string name="cargando">Cargando...</string>
     <string name="buscar">Buscar...</string>
+    <string name="crear_tarea">Crear Tarea</string>
+    <string name="ver_tarea">Ver Tarea</string>
+    <string name="nombres">Nombre</string>
+    <string name="s">Nombre de usuario</string>
+    <string name="correo_electronico">Correo Electronico</string>
 </resources>

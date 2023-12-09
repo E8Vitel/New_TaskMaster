@@ -36,7 +36,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.context = context;
 
-        // Resto del código de tu onReceive...
         mostrarNotificacion(intent);
     }
 
@@ -47,9 +46,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         String nombre = taskName.getString("TASK_NAME");
         Log.d("AlarmReceiver", "Nombre de la tarea recibido: " + nombre);
+        createNotificationChannel();
 
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notisFecha")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationService.NotificationChannels.TAREAS_CHANNEL_ID)
                     .setSmallIcon(R.drawable.baseline_notifications_active_24)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setDefaults(Notification.DEFAULT_ALL)
@@ -76,6 +75,20 @@ public class AlarmReceiver extends BroadcastReceiver {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.VIBRATE}, 123);
         }
     }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "notificacionesTareas";
+            String description = "Notis fecha";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
+            NotificationChannel channel = new NotificationChannel(NotificationService.NotificationChannels.TAREAS_CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+            Log.d("AlarmReceiver", "Canal de notificación creado en AlarmReceiver");
+        }
+    }
     // Resto del código de tu BroadcastReceiver...
 }

@@ -18,6 +18,6 @@
         android:text="@string/cargando"
         android:textSize="18sp"
         android:textColor="@color/purple_500"
-        android:gravity="start|center_vertical"/>
+        android:layout_gravity="start|center_vertical"/>
 
 </LinearLayout>

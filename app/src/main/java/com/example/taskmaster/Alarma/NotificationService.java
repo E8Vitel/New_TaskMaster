@@ -15,10 +15,14 @@ import com.example.taskmaster.MainActivity;
 import com.example.taskmaster.R;
 
 public class NotificationService extends JobService {
-    private static final String CHANNEL_ID = "notisFecha";
+    public class NotificationChannels {
+        public static final String TAREAS_CHANNEL_ID = "notificacionesTareas";
+    }
 
+    private static final String CHANNEL_ID = NotificationChannels.TAREAS_CHANNEL_ID;
     @Override
     public boolean onStartJob(JobParameters params) {
+        createNotificationChannel();
         showNotification();
         return false;
     }
@@ -29,7 +33,7 @@ public class NotificationService extends JobService {
     }
 
     private void showNotification() {
-        createNotificationChannel();
+        // Create the notification channel first
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -42,22 +46,20 @@ public class NotificationService extends JobService {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
-        builder.setContentIntent(pendingIntent);
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.notify(1, builder.build());
     }
 
+
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "notisFecha2";
-            String description = "Channel Description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        CharSequence name = "notificacionesTareas";
+        String description = "Notis fecha";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription(description);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 }

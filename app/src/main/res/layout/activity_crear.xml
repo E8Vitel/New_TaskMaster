@@ -24,8 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Crear Tarea"
+                android:text="@string/crear_tarea"
                 android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
 
@@ -48,7 +49,7 @@
             android:id="@+id/vTarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
             android:text="@string/nombre_de_la_tarea" />
@@ -58,28 +59,33 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
-            android:labelFor="@+id/vTarea" />
+            android:labelFor="@+id/vTarea"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/vDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/descripcion_de_la_tarea" />
+            android:text="@string/descripcion_de_la_tarea"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/createDesc"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
-            android:labelFor="@+id/vDescripcion" />
+            android:labelFor="@+id/vDescripcion"
+            android:textColor="@color/black"
+            />
 
         <TextView
             android:id="@+id/vFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="@string/seleccionar_fecha_limite" />
+            android:text="@string/seleccionar_fecha_limite"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/createFecha"
@@ -90,6 +96,7 @@
             android:inputType="none"
             android:focusable="false"
             android:clickable="true"
+            android:textColor="@color/black"
             />
 
         <RelativeLayout
