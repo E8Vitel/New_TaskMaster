@@ -91,6 +91,7 @@ public class CrearActivity extends AppCompatActivity {
                     .setValue(tareas).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            String tarea = taskName.getText().toString();
                             setAlarm(tarea);
                             Toast.makeText(CrearActivity.this, "Tarea creada", Toast.LENGTH_LONG).show();
                             finish();
@@ -140,9 +141,9 @@ public class CrearActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void setAlarm(String taskNameValue) {
+    private void setAlarm(String tarea) {
         String taskDateTime = txtFechaLimite.getText().toString();
-        Log.d("setAlarm", "Nombre de la tarea: " + taskNameValue);
+        Log.d("setAlarm", "Nombre de la tarea: " + tarea);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date date = null;
@@ -158,11 +159,11 @@ public class CrearActivity extends AppCompatActivity {
 
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             Intent intent = new Intent(this, AlarmReceiver.class);
+            intent.setAction("com.example.taskmaster.NOTIFY_TASK");
+            intent.putExtra("nombreTarea", tarea);
 
-            // Asegúrate de que estás utilizando la misma clave "TASK_NAME" aquí
-            intent.putExtra("TASK_NAME", taskNameValue);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE);
+            int requestCode = (int) System.currentTimeMillis();
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
 
             // Configura la alarma para que se active en la fecha y hora especificadas
             alarmManager.set(AlarmManager.RTC, timeInMillis, pendingIntent);
@@ -171,4 +172,5 @@ public class CrearActivity extends AppCompatActivity {
             startService(serviceIntent);
         }
     }
+
 }

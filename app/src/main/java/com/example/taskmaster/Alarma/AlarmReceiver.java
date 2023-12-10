@@ -1,24 +1,18 @@
 package com.example.taskmaster.Alarma;
 
+
 import android.Manifest;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
@@ -26,7 +20,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.taskmaster.MainActivity;
 import com.example.taskmaster.R;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -36,16 +29,19 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.context = context;
 
-        mostrarNotificacion(intent);
+        Bundle taskName = intent.getExtras();
+        if (taskName != null) {
+            String nombre = taskName.getString("nombreTarea");
+            Log.d("AlarmReceiver", "Bundle: " + nombre);
+            mostrarNotificacion(nombre);
+        }
     }
 
-    private void mostrarNotificacion(Intent intent) {
+    private void mostrarNotificacion(String name) {
         Log.d("AlarmReceiver", "Alarm received!");
 
-        Bundle taskName = intent.getExtras();
 
-        String nombre = taskName.getString("TASK_NAME");
-        Log.d("AlarmReceiver", "Nombre de la tarea recibido: " + nombre);
+        Log.d("AlarmReceiver", "Nombre de la tarea recibido: " + name);
         createNotificationChannel();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationService.NotificationChannels.TAREAS_CHANNEL_ID)
@@ -53,7 +49,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setContentTitle("¡Es hora de realizar tu tarea!")
-                    .setContentText("No olvides completar la tarea: " + nombre);
+                    .setContentText("No olvides completar la tarea: " + name);
 
 
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED) {

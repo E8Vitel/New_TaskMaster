@@ -63,8 +63,11 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
+            android:paddingStart="16dp"
             android:labelFor="@+id/vTarea"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:background="@drawable/rounded_eve"
+            android:backgroundTint="#E0E0E0"/>
 
         <TextView
             android:id="@+id/vDescripcion"
@@ -79,7 +82,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
+            android:paddingStart="16dp"
             android:labelFor="@+id/vDescripcion"
+            android:background="@drawable/rounded_eve"
+            android:backgroundTint="#E0E0E0"
             android:textColor="@color/black"/>
 
         <TextView
@@ -95,6 +101,9 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
+            android:paddingStart="16dp"
+            android:background="@drawable/rounded_eve"
+            android:backgroundTint="#E0E0E0"
             android:labelFor="@+id/vFecha"
             android:inputType="none"
             android:focusable="false"
